@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS2 - JS3</title>
+    <script>
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const nameInput = document.getElementById( 'user-name' );
+            const speak = (prefix) => alert(prefix + ' ' + nameInput.value );
+            // Needs to be accessible globally
+            window.speak = speak;
+
+            // Problem says: "Do not include a submit button with the form"
+            // Annoyingly, HTML5 will try and make non-"submit" buttons submit
+            // the form, see https://html.spec.whatwg.org/#form-submission-2
+            // Since the problem says exactly what the "speak()" function
+            // should do, preventing the submission in a separate callback
+            document.getElementById('input-form').addEventListener(
+                'submit',
+                ( e ) => e.preventDefault()
+            );
+        } );
+    </script>
+</head>
+<body>
+
+<form id="input-form" method="GET" action="./js2_3.html">
+    <label for="user-name">Please enter your name:</label>
+    <br>
+    <input type="text" id="user-name">
+
+    <button onClick="speak('Hello')">Hello</button>
+    <button onClick="speak('Good Bye')">Good Bye</button>
+    <button onClick="speak('Greetings')">Greetings</button>
+</form>
+</body>
+</html>

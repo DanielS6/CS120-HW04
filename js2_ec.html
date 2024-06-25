@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS2 - Extra Credit</title>
+    <script>
+        const STATE_NAMES = [
+            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+            'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+            'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+            'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+            'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+            'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+            'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
+            'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+            'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+            'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
+        ];
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const select = document.getElementById('states-selection');
+            const allOpts = [];
+            STATE_NAMES.forEach( ( state, idx ) => {
+                const opt = document.createElement( 'option' );
+                opt.setAttribute( 'value', state );
+                opt.innerText = state;
+                if ( idx === 0 ) {
+                    opt.selected = true;
+                }
+                allOpts.push( opt );
+            } );
+            select.append( ...allOpts );
+
+            let stateNum = 1;
+            const statesDisplay = document.getElementById('states-display');
+            document.getElementById('btn-add-state').addEventListener(
+                'click',
+                () => {
+                    // If all of the states were added already, do nothing
+                    if ( select.value === '' ) {
+                        return;
+                    }
+                    statesDisplay.innerText += stateNum + ". " + select.value + "\n";
+                    stateNum++;
+                    select.selectedOptions[0].remove();
+                    if ( select.options.length !== 0 ) {
+                        select.options[0].selected = true;
+                    }
+                }
+            );
+            document.getElementById('btn-clear-states').addEventListener(
+                'click',
+                () => {
+                    statesDisplay.innerText = '';
+                    stateNum = 1;
+                    select.replaceChildren( ...allOpts );
+                }
+            );
+        } );
+    </script>
+    <style>
+        #pick-wrapper * {
+            vertical-align: top;
+        }
+        #states-selection {
+            width: 150px;
+        }
+        #states-display {
+            border: 1px solid black;
+            min-height: 100px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="pick-wrapper">
+    <label>Pick a state:</label>
+    <select id="states-selection" size=11>
+        <!-- Populated with JavaScript -->
+    </select>
+    <button id="btn-add-state">Add State</button>
+</div>
+<div id="states-display">
+    <!-- Populated with JavaScript -->
+</div>
+<button id="btn-clear-states">Clear States</button>
+
+</body>
+</html>

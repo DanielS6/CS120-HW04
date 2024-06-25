@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS2 - JS4</title>
+    <script>
+        // Explicitly told that event handlers should be assigned within
+        // window.onload, so rather than properly adding an event listener
+        // just clobber window.onload
+        window.onload = () => {
+            const nameInput = document.getElementById( 'user-name' );
+            function speak() {
+                alert( this.textContent + ' ' + nameInput.value );
+            }
+
+            document.getElementById('btn-hello').addEventListener( 'click', speak );
+            document.getElementById('btn-goodbye').addEventListener( 'click', speak );
+            document.getElementById('btn-greetings').addEventListener( 'click', speak );
+        }
+
+        // Problem doesn't say how to avoid a submit button so I can do this
+        // a) without clobbering, and b) without waiting for other scripts (i.e.
+        // with DOMContentLoaded rather than window's `load` event)
+        document.addEventListener( 'DOMContentLoaded', () => {
+            // Problem says: "Do not include a submit button with the form"
+            // Annoyingly, HTML5 will try and make non-"submit" buttons submit
+            // the form, see https://html.spec.whatwg.org/#form-submission-2
+            // Since the problem says exactly what the "speak()" function
+            // should do, preventing the submission in a separate callback
+            document.getElementById('input-form').addEventListener(
+                'submit',
+                ( e ) => e.preventDefault()
+            );
+        } );
+    </script>
+</head>
+<body>
+
+<form id="input-form" method="GET" action="./js2_3.html">
+    <label for="user-name">Please enter your name:</label>
+    <br>
+    <input type="text" id="user-name">
+
+    <button id="btn-hello">Hello</button>
+    <button id="btn-goodbye">Good Bye</button>
+    <button id="btn-greetings">Greetings</button>
+</form>
+</body>
+</html>

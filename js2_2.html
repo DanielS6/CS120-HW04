@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS2 - JS2</title>
+    <script>
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const names = [ 'Adam', 'Ben', 'Camille', 'Daniel', 'Emma', 'Fred', 'Gabi' ];
+            const listElems = names.map(
+                ( name ) => {
+                    const elem = document.createElement( 'li' );
+                    elem.innerText = name;
+                    return elem;
+                }
+            );
+            const list = document.createElement( 'ol' );
+            list.append( ...listElems );
+            document.querySelector( 'body' ).append( list );
+        } );
+    </script>
+</head>
+<body>
+</body>
+</html>

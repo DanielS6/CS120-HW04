@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS2 - JS1</title>
+    <script>
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const sentence = prompt( 'Please enter a sentence' );
+            // Properly handle empty input
+            const words = (sentence === '' ? [] : sentence.split( ' ' ));
+            const text = (words.length === 1 ? '1 word' : (words.length + ' words'));
+            document.getElementById('num-words').innerText = text;
+        } );
+    </script>
+</head>
+<body>
+
+<p>
+    Your sentence had <span id="num-words">?</span>.
+</p>
+</body>
+</html>
